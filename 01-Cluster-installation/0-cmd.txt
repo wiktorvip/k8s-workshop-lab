@@ -1,3 +1,10 @@
+# Install minikube
+
+run add_path.ps1 run as administrator
+
+install_k8s_tools.ps1 run as normal user
+
+
 minikube config set driver hyperv
 
 minikube config defaults kubernetes-version
