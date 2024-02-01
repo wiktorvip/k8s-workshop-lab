@@ -14,7 +14,7 @@ spec:
   selector:
     matchLabels:
       app: set-mysql
-  serviceName: "svc-mysql-h"
+  serviceName: "svc-mysql-h"          # The same name as Headless Services
   replicas: 3
   template:
     metadata:
