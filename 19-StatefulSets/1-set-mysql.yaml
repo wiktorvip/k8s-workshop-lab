@@ -14,7 +14,7 @@ spec:
   selector:
     matchLabels:
       app: set-mysql
-  serviceName: "svc-set-mysql"
+  serviceName: "svc-mysql-h"
   replicas: 3
   template:
     metadata:
@@ -49,7 +49,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: svc-set-mysql
+  name: svc-mysql-h
   labels:
     app: mysql
 spec:
