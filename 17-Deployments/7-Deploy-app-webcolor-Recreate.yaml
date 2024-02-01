@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-webcolor-recreate
+  name: app-webcolor-recreate
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-webcolor-recreate
+  strategy:
+    type: Recreate                   # All existing Pods are killed before new ones are created
+  template:
+    metadata:
+      labels:
+        app: app-webcolor-recreate
+        code: webcolor
+    spec:
+      containers:
+      - image: ghcr.io/wiktorvip/app-webcolor:v1
+        name: app-webcolor
+        ports:
+          - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-app-webcolor-recreate
+  namespace: default
+spec:
+  ports:
+  - nodePort: 30060
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: app-webcolor-recreate
+  type: NodePort

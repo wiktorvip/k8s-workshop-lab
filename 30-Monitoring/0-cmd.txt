@@ -1,0 +1,7 @@
+
+kubectl top po
+kubectl top node
+
+
+
+

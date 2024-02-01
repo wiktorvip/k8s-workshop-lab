@@ -1,0 +1,8 @@
+kubectl label node k8s-w1 disktype=hdd
+
+
+kubectl label node k8s-w2 color=orange
+
+kubectl label node k8s-w2 color=blue
+
+

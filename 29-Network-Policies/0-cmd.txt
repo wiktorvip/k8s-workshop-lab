@@ -1,0 +1,6 @@
+
+kubectl exec --stdin --tty test -- /bin/sh
+
+
+
+

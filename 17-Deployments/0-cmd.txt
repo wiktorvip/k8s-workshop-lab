@@ -1,0 +1,54 @@
+kubectl scale deployment app-webcolor-recreate --replicas=10
+
+
+# Recreate
+
+kubectl rollout status deployment app-webcolor-recreate
+
+kubectl set image deployment app-webcolor-recreate app-webcolor=ghcr.io/wiktorvip/app-webcolor:v2
+
+kubectl annotate deployment app-webcolor-recreate kubernetes.io/change-cause="image updated to v1 to v2"
+
+for i in {1..35}; do
+kubectl exec pod-curl -- sh -c 'wget -qO- -T 2  http://svc-app-webcolor-recreate.default.svc.cluster.local:9000/all'
+   echo ""
+done
+
+kubectl get rs
+kubectl rollout status deployment app-webcolor-recreate
+
+kubectl rollout history deployment app-webcolor-recreate --revision=2
+
+kubectl rollout undo deployment app-webcolor-recreate 
+
+
+# RollingUpdate
+kubectl scale deployment app-webcolor-rolling --replicas=10
+
+kubectl rollout status deployment app-webcolor-rolling
+
+kubectl set image deployment app-webcolor-rolling app-webcolor=ghcr.io/wiktorvip/app-webcolor:v7
+
+kubectl annotate deployment app-webcolor-rolling kubernetes.io/change-cause="image updated to v1 to v2"
+
+for i in {1..35}; do
+kubectl exec pod-curl -- sh -c 'wget -qO- -T 2  http://svc-app-webcolor-rolling:9000/all'
+   echo ""
+done
+
+kubectl get rs
+kubectl rollout status deployment app-webcolor-rolling
+
+kubectl rollout history deployment app-webcolor-rolling --revision=2
+
+kubectl rollout undo deployment app-webcolor-rolling
+
+
+### Canary deployments
+
+kubectl scale deployment app-webcolor-rolling --replicas=10
+
+for i in {1..35}; do
+kubectl exec pod-curl -- sh -c 'wget -qO- -T 2  http://svc-app-webcolor-canary:9000/all'
+   echo ""
+done

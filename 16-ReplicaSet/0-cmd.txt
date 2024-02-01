@@ -1,0 +1,11 @@
+# Show all ReplicaSets
+kubectl get rs
+
+# Show detailed state of a ReplicaSet
+kubectl describe rs [replicaset_name]
+
+# Show detailed info for ReplicaSets
+kubectl get rs -o wide
+
+# Scale a ReplicaSet
+kubectl scale --replicas=[x] [replicaset_name]

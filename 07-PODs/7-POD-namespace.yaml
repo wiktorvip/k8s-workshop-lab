@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-namespace
+  namespace: kube-public
+  labels:
+    app: busybox
+    env: prod
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command:
+      - sh
+      - -c
+      - echo Hello Kubernetes! && sleep 3600

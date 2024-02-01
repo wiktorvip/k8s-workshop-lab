@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: rb-role-pod-access-to-bob
+  namespace: default
+subjects:
+- kind: User              # Specifies a User, Group, or ServiceAccount.
+  name: bob               # Specifies the case-sensitive name of the user, group, or service account. 
+  apiGroup: rbac.authorization.k8s.io # Specifies the API group to which the role belongs. 
+roleRef:
+  kind: Role              # Specifies the binding's type, such as Role or ClusterRole.
+  name: role-pod-access   # Specifies the name of the Role or ClusterRole to bind.
+  apiGroup: rbac.authorization.k8s.io # Specifies the API group of the role to which the roleRef field refers.
+
+# kubectl create rolebinding rb-role-pod-access-to-bob --user=default:bob --role=role-pod-access

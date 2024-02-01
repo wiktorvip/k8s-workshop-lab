@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels:
+    env: dev
+  name: app-1
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      env: dev
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        bu: finance
+        env: dev
+        tier: frontend
+      name: app
+    spec:
+      containers:
+      - command:
+        - sleep
+        - "4800"
+        image: busybox
+        name: busybox
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels:
+    env: prod
+  name: app-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      env: prod
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        env: prod
+        tier: frontend
+      name: app
+    spec:
+      containers:
+      - command:
+        - sleep
+        - "4800"
+        image: busybox
+        name: busybox
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  generation: 1
+  labels:
+    env: dev
+  name: db-1
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      env: dev
+      tier: db
+  template:
+    metadata:
+      labels:
+        env: dev
+        tier: db
+      name: db
+    spec:
+      containers:
+      - command:
+        - sleep
+        - "4800"
+        image: busybox
+        name: busybox
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels:
+    env: prod
+  name: db-2
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      env: prod
+      tier: db
+  template:
+    metadata:
+      labels:
+        bu: finance
+        env: prod
+        tier: db
+      name: db
+    spec:
+      containers:
+      - command:
+        - sleep
+        - "4800"
+        image: busybox
+        name: busybox
+

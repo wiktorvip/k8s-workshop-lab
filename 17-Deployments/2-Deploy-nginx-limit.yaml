@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-nginx-limit
+  labels:
+    app: web
+spec:
+  selector:
+    matchLabels:
+      app: nginx-limit        # has to match .spec.template.metadata.labels
+  replicas: 3                 # specifies how many pods to run
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+
+  template:
+    metadata:
+      labels:
+        app: nginx-limit        # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+       - name: nginx
+         image: nginx:1.24
+         resources:
+           limits:             # each container should not be allowed to consume more than 200Mi of memory.
+             memory: 200Mi
+           requests:           # each container requires 100m of CPU resources and 200Mi of memory on the node
+             cpu: 100m
+             memory: 200Mi
+         ports:
+         - containerPort: 80

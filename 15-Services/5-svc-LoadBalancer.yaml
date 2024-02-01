@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: loadbalancer-svc-app-webcolor
+  labels:
+    app: loadbalancer-svc-app-webcolor
+spec:
+  selector:
+    app: app-webcolor-svc
+  type: LoadBalancer
+  ports:
+  - port: 9000
+    # By default and for convenience, the `targetPort` is set to
+    # the same value as the `port` field.  
+    targetPort: 9000
+    protocol: TCP

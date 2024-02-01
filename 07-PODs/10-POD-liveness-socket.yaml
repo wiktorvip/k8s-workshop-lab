@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: netshoot
+    env: test
+  name: pod-liveness-socket
+spec:
+  containers:
+  - name: netshoot
+    image: nicolaka/netshoot
+    command:
+    - /bin/sh    
+    args:
+    - "-c"
+    - while true; do echo -e "HTTP/1.1 200 OK\n\n This is the Test server!" | nc -l -p 8080 -q 1; done
+    ports:
+    - containerPort: 8080
+    readinessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 15
+      periodSeconds: 10
+    livenessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 15
+      periodSeconds: 10

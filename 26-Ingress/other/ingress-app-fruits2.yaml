@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+     #nginx.ingress.kubernetes.io/rewrite-target: /
+     #nginx.ingress.kubernetes.io/ssl-redirect: "false"
+     nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: ingress-app-fruits2
+spec:
+  # defaultBackend:
+  #   service:
+  #     name: svc-app-webcolor-yellow
+  #     port:
+  #       number: 9000
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: apple-service
+            port:
+              number: 5678
+        path: /apple(/|$)(.*)
+        #pathType: Prefix
+      - backend:
+          service:
+            name: banana-service
+            port:
+              number: 5678
+        path: /banana(/|$)(.*)
+        #pathType: Prefix

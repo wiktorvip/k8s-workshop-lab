@@ -1,0 +1,4 @@
+kubectl get pods -l env=dev
+
+kubectl get pods -l env=prod,tier=frontend
+

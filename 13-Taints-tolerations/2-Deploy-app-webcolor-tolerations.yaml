@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: deployment-app-webcolor-tolerations
+  name: deployment-app-webcolor-tolerations
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-webcolor-tolerations
+  template:
+    metadata:
+      labels:
+        app: app-webcolor-tolerations
+    spec:
+      containers:
+      - image: ghcr.io/wiktorvip/app-webcolor:v4
+        name: app-webcolor
+        ports:
+          - containerPort: 9000
+      tolerations:
+      - key: "color"
+        operator: "Equal"
+        value: "pink"
+        effect: "NoSchedule"

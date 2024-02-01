@@ -1,0 +1,35 @@
+kubectl run nginx --image=nginx
+
+kubectl exec pod-command -- printenv
+kubectl exec --stdin --tty pod-command -- /bin/sh
+
+----------------------------------------------------------------------------
+
+Logs:
+
+kubectl logs <POD name>
+Inspect directory: /var/log/pods
+crictl logs f43905d40cae2
+
+----------------------------------------------------------------------------
+
+# Show a list of pods
+kubectl get po
+
+# Show a detailed list of pods
+kubectl get po -o wide
+
+# Show detailed pod state
+kubectl describe pod [pod_name]
+
+# Show pods running on a node
+kubectl get pods -o wide | grep [node_name]
+
+# Show pod cpu/memory usage
+kubectl top pod
+
+# Delete a pod
+kubectl delete pod [pod_name]
+
+# Get a shell on a single-container pod
+kubectl exec -it [pod_name] /bin/sh

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-example
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 100Mi
+  hostPath:
+    path: /srv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv-example-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-claim
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - mountPath: "/var/www/html"
+          name: volume-www
+  volumes:
+    - name: volume-www
+      persistentVolumeClaim:
+        claimName: pv-example-claim

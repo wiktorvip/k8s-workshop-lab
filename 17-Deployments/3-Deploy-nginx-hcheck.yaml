@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-nginx-hcheck
+  labels:
+    app: nginx-hcheck
+spec:
+  selector:
+    matchLabels:
+      app: nginx-hcheck        # has to match .spec.template.metadata.labels
+  replicas: 3                  # specifies how many pods to run
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nginx-hcheck        # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+       - name: nginx
+         image: nginx:1.24
+         ports:
+          - containerPort: 80
+         livenessProbe:
+           httpGet:                # specifies that the kubelet should try a HTTP request on the root of the web server on port 80.
+             path: /
+             port: 80
+           initialDelaySeconds: 5  # specifies how long the kubelet should wait after the pod starts, before performing the first probe.
+           periodSeconds: 5        # specifies how often the kubelet should perform a liveness probe.

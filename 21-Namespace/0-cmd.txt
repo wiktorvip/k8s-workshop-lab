@@ -1,0 +1,14 @@
+kubectl config set-context --current --namespace=app
+kubectl config get-contexts
+
+kubectl config set-context --current --namespace=default
+
+
+
+kubectl exec -i -t pod-dnsutils -- nslookup kubernetes.default
+kubectl exec -i -t pod-dnsutils -- nslookup kubernetes.default
+
+kubectl exec -i -t pod-dnsutils -- nslookup kubernetes.default
+kubectl exec -i -t pod-dnsutils -- nslookup kubernetes.default
+
+

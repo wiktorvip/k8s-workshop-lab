@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-index-html
+  namespace: default
+data:
+  index.html: |
+    <html>
+    <h1>Welcome</h1>
+    </br>
+    <h1>Hi! This is a configmap Index file </h1>
+    </html
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: pod-cm-nginx-mount
+  name: pod-cm-nginx-mount
+spec:
+  volumes:
+  - name: cm-index-volume
+    configMap:
+      name: cm-index-html
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+      - name: cm-index-volume
+        readOnly: true
+        mountPath: "/usr/share/nginx/html/"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-pod-cm-nginx-mount
+spec:
+  selector:
+    app: pod-cm-nginx-mount
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30085

@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-password
+type: opaque
+stringData:
+  MYSQL_ROOT_PASSWORD: password
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: set-mysql
+spec:
+  selector:
+    matchLabels:
+      app: set-mysql
+  serviceName: "svc-set-mysql"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: set-mysql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-store
+          mountPath: /var/lib/mysql
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-password
+                key: MYSQL_ROOT_PASSWORD
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-store
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      #storageClassName: "nfs-client"
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-set-mysql
+  labels:
+    app: mysql
+spec:
+  ports:
+  - port: 3306
+  clusterIP: None         # none means Headless Services
+  selector:
+    app: set-mysql

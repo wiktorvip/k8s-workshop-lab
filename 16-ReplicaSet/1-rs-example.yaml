@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-example
+  namespace: default
+spec:
+  replicas: 3                   # specifies how many pods to run
+  selector:
+    matchLabels:
+      name: busybox-rs         # has to match .spec.template.metadata.labels
+  template:
+    metadata:
+      labels:
+        name: busybox-rs        # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: busybox-container
+        image: busybox
+        command:
+        - sh
+        - -c
+        - echo Hello Kubernetes! && sleep 3600

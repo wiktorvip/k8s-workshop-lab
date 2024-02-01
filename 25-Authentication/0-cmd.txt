@@ -1,0 +1,7 @@
+kubectl create serviceaccount sa-dashboard
+
+kubectl create token sa-dashboard
+
+
+minikube service --all
+

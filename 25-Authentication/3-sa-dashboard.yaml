@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sa-dashboard
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: role-pod-reader
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - watch
+  - list
+
+# kubectl create role role-pod-reader --verb=get --verb=list --verb=watch --resource=pods
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: bind-role-list-pods-to-sa-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: role-pod-reader
+subjects:
+- kind: ServiceAccount
+  name: sa-dashboard
+  namespace: default
+
+# kubectl create rolebinding bind-role-list-pods-to-sa-dashboard --serviceaccount=default:sa-dashboard --role=role-pod-reader

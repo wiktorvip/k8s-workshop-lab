@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app-blue
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: app-blue
+  name: app-blue
+  namespace: app-blue
+spec:
+  containers:
+  - name: web
+    image: nicolaka/netshoot
+    imagePullPolicy: Always
+    command:
+    - /bin/sh
+    args:
+    - -c
+    - while true; do echo -e "HTTP/1.1 200 OK\n\n This is the Blue APP!" | nc -l -p 7777 -q 1; done
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-app-blue
+  namespace: app-blue
+spec:
+  ports:
+  - port: 7777
+    protocol: TCP
+    targetPort: 7777
+  selector:
+    name: app-blue
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: app-green
+  name: app-green
+spec:
+  containers:
+  - name: web
+    image: nicolaka/netshoot
+    imagePullPolicy: Always
+    command:
+    - /bin/sh
+    args:
+    - -c
+    - while true; do echo -e "HTTP/1.1 200 OK\n\n This is the Green APP!" | nc -l -p 8888 -q 1; done
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-app-green
+spec:
+  ports:
+  - port: 8888
+    protocol: TCP
+    targetPort: 8888
+  selector:
+    name: app-green
+  type: ClusterIP

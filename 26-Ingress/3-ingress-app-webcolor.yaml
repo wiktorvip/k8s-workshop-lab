@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+     nginx.ingress.kubernetes.io/rewrite-target: /
+     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  name: ingress-app-webcolor
+spec:
+  # defaultBackend:
+  #   service:
+  #     name: svc-app-webcolor-yellow
+  #     port:
+  #       number: 9000
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: svc-app-webcolor-blue
+            port:
+              number: 9000
+        path: /blue
+        pathType: Prefix
+      - backend:
+          service:
+            name: svc-app-webcolor-green
+            port:
+              number: 9000
+        path: /green
+        pathType: Prefix

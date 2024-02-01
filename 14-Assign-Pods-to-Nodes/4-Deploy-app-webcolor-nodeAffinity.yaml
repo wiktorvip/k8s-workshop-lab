@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: deployment-app-webcolor-affinity
+  name: deployment-app-webcolor-affinity
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-webcolor-affinity
+  template:
+    metadata:
+      labels:
+        app: app-webcolor-affinity
+    spec:
+      containers:
+      - image: ghcr.io/wiktorvip/app-webcolor:orange
+        name: app-webcolor
+        ports:
+          - containerPort: 9000
+      affinity:
+        nodeAffinity:         # specifies desired criteria of a node which will cause the pod to be scheduled on it
+          requiredDuringSchedulingIgnoredDuringExecution:   # specifies that affinity is relevant when scheduling a new pod, but is ignored when the pod is already running.
+            nodeSelectorTerms:  # specifies, in this case, that the node needs to have a disk of type SSD for the pod to be scheduled
+            - matchExpressions:
+              - key: color
+                operator: In
+                values:
+                - orange
+                - blue

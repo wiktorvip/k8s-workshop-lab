@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: app-webcolor-svc
+  name: pod-app-webcolor-svc
+spec:
+  containers:
+  - image: ghcr.io/wiktorvip/app-webcolor:v2
+    name: app-webcolor

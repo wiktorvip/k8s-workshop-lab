@@ -1,0 +1,21 @@
+sudo cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep service-cluster-ip-range
+
+sudo cat /etc/kubernetes/manifests/kube-controller-manager.yaml | grep cluster-cidr
+
+kubectl describe nodes | grep PodCIDR
+
+sudo systemctl cat kubelet.service
+
+sudo cat /var/lib/kubelet/config.yaml
+
+kubectl describe nodes k8s-m1 | grep PodCIDR
+
+sudo ls -la /etc/cni/net.d/
+
+---
+
+kubectl exec -i -t pod-dnsutils -- nslookup kubernetes.default
+kubectl exec -ti dnsutils -- cat /etc/resolv.conf
+
+
+

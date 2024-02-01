@@ -1,0 +1,24 @@
+minikube config set driver hyperv
+
+minikube config defaults kubernetes-version
+
+minikube start --cpus=2 --memory=2GB --disk-size=10GB --nodes=2 --kubernetes-version=v1.28.3 --container-runtime=containerd
+
+minikube profile list
+minikube status
+
+minikube stop
+minikube delete --all
+
+minikube start
+minikube profile list
+
+
+minikube addons list
+minikube addons enable metrics-server
+minikube addons enable ingress
+
+
+minikube ssh -n minikube
+minikube ssh -n minikube-m02
+

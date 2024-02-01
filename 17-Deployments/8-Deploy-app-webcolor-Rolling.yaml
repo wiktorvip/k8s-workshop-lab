@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-webcolor-rolling
+  name: app-webcolor-rolling
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-webcolor-rolling
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: app-webcolor-rolling
+        code: webcolor
+    spec:
+      containers:
+      - image: ghcr.io/wiktorvip/app-webcolor:v1
+        name: app-webcolor
+        ports:
+          - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-app-webcolor-rolling
+  namespace: default
+spec:
+  ports:
+  - nodePort: 30050
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: app-webcolor-rolling
+  type: NodePort

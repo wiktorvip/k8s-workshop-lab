@@ -1,0 +1,13 @@
+kubectl create configmap NAME [--from-file=[key=]source] [--from-literal=key1=value1]
+
+kubectl create configmap app-webcolor --from-literal=APP_COLOR=green --from-literal=APP_MODE=prod
+
+
+kubectl logs pod-cm-test
+
+
+kubectl exec pod-cm-test-mount -- printenv | grep var
+kubectl exec pod-cm-test-mount -- cat /etc/cm-volume/var1
+kubectl exec pod-cm-test-mount -- cat /etc/cm-volume/var2
+
+minikube service --all

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-app-webcolor
+  labels:
+    app: rs-app-webcolor
+spec:
+  replicas: 3                   # specifies how many pods to run
+  selector:
+    matchLabels:
+      app: app-webcolor-rs         # has to match .spec.template.metadata.labels
+  template:
+    metadata:
+      labels:
+        app: app-webcolor-rs        # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: app-webcolor
+        image: ghcr.io/wiktorvip/app-webcolor

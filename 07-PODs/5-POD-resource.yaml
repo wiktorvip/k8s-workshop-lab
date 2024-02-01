@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: pod-resource-control
+ labels:
+   app: nginx
+   env: dev
+spec:
+ containers:
+ - name: nginx
+   image: nginx
+   resources:
+     requests:           # each container requires 50m of CPU resources and 100Mi of memory on the node
+       memory: "100Mi"
+       cpu: "50m"
+     limits:             # each container should not be allowed to consume more than 200Mi of memory.
+       memory: "200Mi"
+       cpu: "100m"

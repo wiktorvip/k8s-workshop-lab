@@ -1,0 +1,7 @@
+kubectl get node
+
+kubectl taint nodes k8s-w2 color=pink:NoSchedule
+kubectl describe node k8s-w2
+
+
+kubectl taint nodes minikube-m02 color=pink:NoSchedule-

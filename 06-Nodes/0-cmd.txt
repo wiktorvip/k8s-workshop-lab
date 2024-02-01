@@ -1,0 +1,11 @@
+kubectl get node
+kubectl get node -o wide
+
+kubectl describe node k8s-w2
+
+kubectl get nodes k8s-w2 -o yaml
+
+
+sudo crictl ps -a
+sudo crictl images
+

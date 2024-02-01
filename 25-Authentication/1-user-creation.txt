@@ -1,0 +1,55 @@
+USERNAME=david
+
+# create private key (PKCS1, 2048, PEM)
+openssl genrsa -out $USERNAME.pem
+
+# create signing request (will be used in next step)
+openssl req -new -key $USERNAME.pem -out $USERNAME.csr -subj "/CN=$USERNAME/O=developers"
+
+# pass signing request into kubernetes
+cat <<EOF | kubectl apply -f -
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: $USERNAME
+spec:
+  request: $(cat $USERNAME.csr | base64| tr -d "\n")
+  signerName: kubernetes.io/kube-apiserver-client
+  #expirationSeconds: 600
+  usages:
+  - client auth
+EOF
+
+# kubectl get csr $USERNAME # condition - pending
+
+# sign requerst
+kubectl certificate approve $USERNAME
+
+# kubectl get csr $USERNAME # condition -> approved,issued
+
+kubectl get csr $USERNAME -o jsonpath='{.status.certificate}' | base64 -d > $USERNAME.crt
+
+# create conf file, TODO: retrieve kubernetes api endpoint, retrieve CA bundle
+kubectl --kubeconfig ./$USERNAME.conf config set-cluster local --insecure-skip-tls-verify=true --server=https://10.0.0.110:6443
+kubectl --kubeconfig ./$USERNAME.conf config set-credentials $USERNAME --client-certificate=$USERNAME.crt --client-key=$USERNAME.pem --embed-certs=true
+kubectl --kubeconfig ./$USERNAME.conf config set-context default --cluster=local --user=$USERNAME
+kubectl --kubeconfig ./$USERNAME.conf config use-context default
+
+kubectl --kubeconfig ./$USERNAME.conf config view
+
+# cleanup, we do not need csr anymore, temporary files were embeded into config
+kubectl delete csr $USERNAME
+rm $USERNAME.pem $USERNAME.crt $USERNAME.csr
+
+# check that we can talk to kubernetes but do not have privileges it should complain with error: User "demo" cannot list resource "namespaces" in API group "" at the cluster scope
+kubectl --kubeconfig ./$USERNAME.conf get ns
+
+# grant cluster admin cluster role to user
+kubectl create clusterrolebinding $USERNAME --clusterrole=cluster-admin --user=$USERNAME
+
+# check
+kubectl --kubeconfig ./$USERNAME.conf get ns
+
+# cleanup
+rm $USERNAME.conf
+kubectl delete clusterrolebinding $USERNAME

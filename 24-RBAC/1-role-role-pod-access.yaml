@@ -1,0 +1,21 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: role-pod-access
+rules:
+- apiGroups:
+  - ""              # A list of API groups to which the resources belong. The " " refers to the core API group, which contains resources such as pods, services, nodes, etc.
+  resources:
+  - pods            # A list of resources to which the rule applies, such as pods, services, and secrets.
+  - pods/log
+  verbs:            # A list of verbs that the rule allows, such as list, get, watch, create, update, and delete.
+  - create
+  - delete
+  - deletecollection
+  - get
+  - list
+  - patch
+  - update
+
+# kubectl create role role-pod-access --resource=pods,pods/log --verb=create,delete,deletecollection,get,list,patch,update
