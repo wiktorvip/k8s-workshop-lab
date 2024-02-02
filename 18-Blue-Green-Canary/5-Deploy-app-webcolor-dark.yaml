@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: app-webcolor-blue
-  name: app-webcolor-blue
+    app: app-webcolor-dark
+  name: app-webcolor-dark
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: app-webcolor-blue
+      app: app-webcolor-dark
   template:
     metadata:
       labels:
-        app: app-webcolor-blue
-        version: v1
+        app: app-webcolor-dark
+        version: v3
         code: app-webcolor
     spec:
       containers:
-      - image: ghcr.io/wiktorvip/app-webcolor:blue
+      - image: ghcr.io/wiktorvip/app-webcolor:dark
         name: app-webcolor
         imagePullPolicy: IfNotPresent
         ports:

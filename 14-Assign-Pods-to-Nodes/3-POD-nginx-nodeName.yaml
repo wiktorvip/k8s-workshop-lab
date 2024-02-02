@@ -7,5 +7,5 @@ spec:
   - name: nginx
     image: nginx
     imagePullPolicy: IfNotPresent
-  nodeName: k8s-w1
+  nodeName: minikube
 

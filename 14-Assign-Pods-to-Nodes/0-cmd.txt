@@ -1,8 +1,9 @@
 kubectl label node k8s-w1 disktype=hdd
 
+kubectl label node minikube-m02 disktype=ssd
 
 kubectl label node k8s-w2 color=orange
 
-kubectl label node k8s-w2 color=blue
+kubectl label node minikube-m02 color=blue
 
 

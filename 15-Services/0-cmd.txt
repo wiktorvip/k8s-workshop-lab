@@ -1,1 +1,11 @@
 minikube service --all
+
+kubectl exec --stdin --tty pod-busybox -- sh
+
+wget -q -O- http://cluster-svc-app-webcolor:9000
+
+
+minikube service nodeport-svc-app-webcolor
+
+
+minikube tunnel
