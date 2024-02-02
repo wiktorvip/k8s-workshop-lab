@@ -3,11 +3,11 @@ kind: Secret
 metadata:
     name: app-secret
 data:
-    DB_Host: c3ZjLW15c3FsCg==
-    DB_Password: cGFzd3Jk
+    DB_Host: c3ZjLW15c3FsLXNlcnZlcgo=
+    DB_Password: cGFzc3dvcmQK
     DB_User: cm9vdA==
 
-# echo 'svc-mysql' | base64
+# echo 'svc-mysql-server' | base64
 # echo 'c3ZjLW15c3FsCg==' | base64 --decode
 
 ---

@@ -1,6 +1,6 @@
 
-kubectl exec --stdin --tty test -- /bin/sh
+kubectl exec --stdin --tty pod-mysql-client -- /bin/sh
 
-
+mysql -p$MYSQL_PASSWORD
 
 

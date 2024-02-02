@@ -1,13 +1,11 @@
 kubectl exec --stdin --tty pod-mysql-client -- sh
-apk add mysql-client curl
 
-mysql -u root -ppassword -h svc-set-mysql
+mysql -p$MYSQL_PASSWORD -h svc-mysql-h
 
 
 select @@hostname;
 show variables where Variable_name like '%host%';
 
-mysql -u root mysql
 
 kubectl exec --stdin --tty mysql-0 -- sh
 

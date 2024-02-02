@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-web-mysql
+  labels:
+    app: app-web-mysql
+    role: mysql-client
+spec:
+  containers:
+  - name: app-web-mysql
+    image: ghcr.io/wiktorvip/app-web-mysql:v1
+    ports:
+    - containerPort: 9070
+    env:
+     - name: DB_Host
+       value: "svc-mysql-server"
+     - name: DB_Password
+       value: "password"
+     - name: DB_User
+       value: "root"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-app-web-mysql
+spec:
+  selector:
+    app: app-web-mysql
+  type: NodePort
+  ports:
+  - port: 9070
+    targetPort: 9070
+    nodePort: 30070

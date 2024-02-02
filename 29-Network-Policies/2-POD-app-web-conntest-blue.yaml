@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: app-web-conntest-blue
+    role: blue
+  name: app-web-conntest-blue
+  namespace: default
+spec:
+  containers:
+  - name: app-web-conntest
+    image: ghcr.io/wiktorvip/app-web-conntest:v2
+    imagePullPolicy: Always
+    env:
+    - name: APP_NAME
+      value: Blue Application
+    - name: BG_COLOR
+      value: blue
+    ports:
+    - containerPort: 9050
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-app-web-conntest-blue
+  namespace: default
+spec:
+  ports:
+  - nodePort: 30011
+    port: 9050
+    protocol: TCP
+    targetPort: 9050
+  selector:
+    app: app-web-conntest-blue
+  type: NodePort
