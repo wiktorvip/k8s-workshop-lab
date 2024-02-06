@@ -1,0 +1,11 @@
+
+https://github.com/nginxinc/nginx-gateway-fabric/tree/main/examples/traffic-splitting
+
+
+
+https://docs.konghq.com/kubernetes-ingress-controller/latest/get-started/services-and-routes/
+
+
+
+
+

@@ -1,0 +1,2 @@
+kubectl run nginx-00 --image=nginx -o yaml --dry-run=client
+

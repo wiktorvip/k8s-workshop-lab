@@ -1,0 +1,61 @@
+
+# Add the repo
+helm repo add metallb https://metallb.github.io/metallb
+
+# Update repo
+helm repo update
+
+# Check Values
+helm show values metallb/metallb
+
+
+helm repo list
+
+helm list -A
+
+helm show values
+
+
+
+# List all available releases in the current namespace:
+helm list
+
+#List all available releases across all namespaces:
+helm list --all-namespaces
+
+# List all releases in a specific namespace:
+helm list --namespace [namespace]
+
+# List all releases in a specific output format:
+helm list --output [format]
+
+# Apply a filter to the list of releases using regular expressions:
+helm list --filter '[expression]'
+
+# See the status of a specific release:
+helm status [release]
+
+# Display the release history:
+helm history [release]
+
+
+# nstall an app:
+helm install [app-name] [chart]
+
+# Install an app in a specific namespace:
+helm install [app-name] [chart] --namespace [namespace]
+
+# Override the default values with those specified in a file of your choice:
+helm install [app-name] [chart] --values [yaml-file/url]
+
+# Run a test installation to validate and verify the chart:
+helm install [app-name] --dry-run --debug
+
+# Uninstall a release:
+helm uninstall [release]
+
+# Upgrade an app:
+helm upgrade [release] [chart]
+
+# Rollback a release:
+helm rollback [release] [revision]

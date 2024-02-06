@@ -1,0 +1,18 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: app-webcolor-keda
+  namespace: default
+spec:
+  scaleTargetRef:       # ss a reference of your Kubernetes Deployment / StatefulSet or other custom resource you want to scale 
+    name: app-webcolor-keda   # (mandatory): name of your Kubernetes resource,  must be in the same namespace as the ScaledObject
+    kind: Deployment    # (optional): kind of your Kubernetes resource, the default value is Deployment
+  minReplicaCount: 0  # Default: 0, Minimum number of replicas KEDA will scale the deployment down to
+  cooldownPeriod: 30  # The period to wait after the last trigger reported active before scaling the deployment back to 0. By default, it’s 5 minutes (300 seconds).  
+  triggers:
+  - type: cron          # type (mandatory): scaler name
+    metadata:           # (mandatory): configuration parameters that the Cron scaler requires With this configuration, my application will be up and running with two replicas from 08:00 until 18:00 every day of the week from Monday through Friday
+      timezone: Europe/Warsaw # The acceptable values would be a value from the IANA Time Zone Database.
+      start: 11 15 * * 1-5
+      end: 15 15 * * 1-5
+      desiredReplicas: "3"    # Number of replicas to which the resource has to be scaled between the start and end of the cron schedule.

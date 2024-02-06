@@ -1,0 +1,62 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-webcolor-keda
+  name: app-webcolor-keda
+spec:
+  selector:
+    matchLabels:
+      app: app-webcolor-keda
+  template:
+    metadata:
+      labels:
+        app: app-webcolor-keda
+    spec:
+      containers:
+        - image: ghcr.io/wiktorvip/app-webcolor:dark
+          name: app-webcolor
+          ports:
+          - containerPort: 9000
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-app-webcolor-keda
+spec:
+  selector:
+    app: app-webcolor-keda
+  ports:
+    - protocol: TCP
+      port: 9000
+      name: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-webcolor-keda
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: host-test.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-app-webcolor-keda
+            port:
+              number: 9000
+#  tls: # < placing a host in the TLS config will indicate a certificate should be created
+#  - hosts:
+#    - host-test.com
+#    secretName: host-test.com-cert

@@ -3,7 +3,10 @@ kind: Job
 metadata:
   name: job-math-add
 spec:
-  completions: 3
+  parallelism: 2               # each step how many pods start in parallel at a time
+  completions: 3               # each step how many pods start in parallel at a time
+  backoffLimit: 5              # to tolerate fail number of job, after 5 times of failure, not try to continue job, fail the job
+  activeDeadlineSeconds: 100   # if this job is not completed in 100 seconds, fail the job
   template:
     spec:
       restartPolicy: Never

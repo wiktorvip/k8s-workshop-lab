@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-app-webcolor-podAffinity
+  name: deployment-app-webcolor-podaffinity
 spec:
   selector:
     matchLabels:
-      app: app-webcolor-podAffinity
-  replicas: 3
+      app: app-webcolor-podaffinity
+  replicas: 4
   template:
     metadata:
       labels:
-        app: app-webcolor-podAffinity
+        app: app-webcolor-podaffinity
     spec:
       affinity:
         podAntiAffinity:
@@ -20,7 +20,7 @@ spec:
               - key: app
                 operator: In
                 values:
-                - app-webcolor-podAffinity
+                - app-webcolor-podaffinity
             topologyKey: "kubernetes.io/hostname"
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

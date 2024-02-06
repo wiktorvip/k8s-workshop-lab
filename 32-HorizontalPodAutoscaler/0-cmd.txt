@@ -4,13 +4,18 @@ kubectl autoscale deployment deployment-php-apache --cpu-percent=50 --min=1 --ma
 
 kubectl get hpa
 
-kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://svc-php-apache; done"
 
-kubectl get hpa php-apache --watch
+kubectl get hpa deployment-php-apache --watch
 
 
 # type Ctrl+C to end the watch when you're ready
-kubectl get hpa php-apache --watch
+kubectl get hpa deployment-php-apache --watch
 
+
+
+curl --header 'Host: host-test.com' http://10.0.0.240
+
+kubectl get get scaledobjects
 
 
