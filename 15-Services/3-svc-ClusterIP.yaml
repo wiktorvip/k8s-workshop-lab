@@ -6,13 +6,13 @@ metadata:
     app: cluster-svc-app-webcolor
 spec:
   selector:
-    app: app-webcolor-svc
-  type: ClusterIP           # default 
+    app: app-webcolor-svc   # Connect to PODs with that label
+  type: ClusterIP           # Default one -> Will dynamically create stable IP on cluster
   ports:
-  - port: 9000
+  - port: 9000              # Stable port on cluster
     # By default and for convenience, the `targetPort` is set to
     # the same value as the `port` field.
-    targetPort: 9000
+    targetPort: 9000        # Port app listens on in Pods/containers
     protocol: TCP
 
 # kubectl exec curl -- sh -c 'test=`wget -qO- -T 2  http://cluster-svc-app-webcolor:9000/info 2>&1` && echo "$test OK" || echo "Failed"'

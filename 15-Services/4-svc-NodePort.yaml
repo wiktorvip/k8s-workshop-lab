@@ -6,15 +6,15 @@ metadata:
     app: nodeport-svc-app-webcolor
 spec:
   selector:
-    app: app-webcolor-svc   # Pod with that label needs exist
-  type: NodePort
+    app: app-webcolor-svc   # Connect to PODs with that label
+  type: NodePort            # Will map 'nodePort' on every cluster node
   ports:
-  - port: 9000
+  - port: 9000              # internal cluster port
     # By default and for convenience, the `targetPort` is set to
     # the same value as the `port` field.
-    targetPort: 9000
+    targetPort: 9000        # Port app listens on in Pods/containers
     protocol: TCP
     # Optional field
     # By default and for convenience, the Kubernetes control plane
     # will allocate a port from a range (default: 30000-32767)
-    nodePort: 30099
+    nodePort: 30099         # External port on every cluster node
