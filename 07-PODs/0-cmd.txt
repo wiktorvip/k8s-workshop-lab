@@ -5,6 +5,13 @@ kubectl exec --stdin --tty pod-command -- /bin/sh
 
 ----------------------------------------------------------------------------
 
+kubectl apply -f 1-POD-example.yaml
+k get pod pod-example -o yaml
+k describe pod pod-example
+k logs pod-multi
+
+----------------------------------------------------------------------------
+
 Logs:
 
 kubectl logs <POD name>

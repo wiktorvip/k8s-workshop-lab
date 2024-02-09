@@ -31,3 +31,4 @@ spec:
 # kubectl exec pod-cm-test-mount -- printenv | grep var
 # kubectl exec pod-cm-test-mount -- cat /etc/cm-volume/var1
 # kubectl exec pod-cm-test-mount -- cat /etc/cm-volume/var2
+# kubectl exec --stdin --tty pod-cm-test-mount -- /bin/sh

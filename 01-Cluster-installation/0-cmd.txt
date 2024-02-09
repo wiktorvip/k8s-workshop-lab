@@ -1,8 +1,17 @@
 # Install minikube
 
-run add_path.ps1 run as administrator
+Open Powershell
 
-install_k8s_tools.ps1 run as normal user
+Start-Process powershell -Verb RunAs
+
+if ((Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ne 'Enabled')
+{
+    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+} else {
+    Write-Host "Microsoft-Hyper-V already activated"
+}
+
+install_k8s_tools.ps1
 
 --------------------------------------------------------------
 
@@ -11,6 +20,9 @@ minikube config set driver hyperv
 minikube config defaults kubernetes-version
 
 minikube start --cpus=2 --memory=2GB --disk-size=10GB --nodes=2 --kubernetes-version=v1.28.3 --container-runtime=containerd
+
+minikube start --hyperv-use-external-switch --cpus=2 --memory=2GB --disk-size=10GB --nodes=2 --kubernetes-version=v1.28.3 --container-runtime=containerd
+
 
 minikube profile list
 minikube status
