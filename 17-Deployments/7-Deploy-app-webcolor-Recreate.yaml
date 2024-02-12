@@ -5,7 +5,7 @@ metadata:
     app: app-webcolor-recreate
   name: app-webcolor-recreate
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: app-webcolor-recreate

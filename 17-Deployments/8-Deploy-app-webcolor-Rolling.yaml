@@ -5,7 +5,7 @@ metadata:
     app: app-webcolor-rolling
   name: app-webcolor-rolling
 spec:
-  replicas: 2
+  replicas: 5
   selector:
     matchLabels:
       app: app-webcolor-rolling

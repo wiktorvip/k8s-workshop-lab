@@ -12,5 +12,5 @@ spec:
   - port: 9000              # Port that cloud load balacer listens on
     # By default and for convenience, the `targetPort` is set to
     # the same value as the `port` field.  
-    targetPort: 9000
-    protocol: TCP           # Port app listens on in Pods/containers
+    targetPort: 9000        # Port app listens on in Pods/containers
+    protocol: TCP

@@ -8,6 +8,6 @@ metadata:
 spec:
   containers:
   - name: mysql-container
-    image: ghcr.io/wiktorvip/mysql-client:v4
+    image: ghcr.io/wiktorvip/mysql-client:v1
     command: ['sh','-c', "sleep 1800m"]
     imagePullPolicy: IfNotPresent

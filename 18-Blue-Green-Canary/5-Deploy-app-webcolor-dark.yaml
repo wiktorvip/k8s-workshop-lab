@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         app: app-webcolor-dark
-        version: v3
+        version: v2
         code: app-webcolor
     spec:
       containers:
