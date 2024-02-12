@@ -12,12 +12,11 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.kubernetes.io/control-plane
-            operator: Exists          # In, NotIn, Exists, DoesNotExist
-
+          - key: "node-role.kubernetes.io/control-plane"
+            operator: Exists          # In, NotIn, Exists, DoesNotExist, Gt and Lt
 
         # - matchExpressions:
         #   - key: disktype
-        #     operator: In          # In, NotIn, Exists, DoesNotExist
+        #     operator: In          # In, NotIn, Exists, DoesNotExist, Gt and Lt
         #     values:               # In => key=value,    NotIn => key!=value
         #     - ssd                 # Exists => only 

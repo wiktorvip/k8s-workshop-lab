@@ -2,10 +2,10 @@ kubectl scale deployment app-webcolor-recreate --replicas=10
 
 
 # Recreate
-
+---------------------------------------------------------------------------------
 kubectl rollout status deployment app-webcolor-recreate
 
-kubectl set image deployment app-webcolor-recreate app-webcolor=ghcr.io/wiktorvip/app-webcolor:v3
+kubectl set image deployment app-webcolor-recreate app-webcolor=ghcr.io/wiktorvip/app-webcolor:v2
 
 kubectl annotate deployment app-webcolor-recreate kubernetes.io/change-cause="image updated to v1 to v2"
 
@@ -22,6 +22,7 @@ kubectl rollout undo deployment app-webcolor-recreate
 
 
 # RollingUpdate
+---------------------------------------------------------------------------------
 kubectl scale deployment app-webcolor-rolling --replicas=10
 
 kubectl rollout status deployment app-webcolor-rolling
@@ -32,8 +33,6 @@ kubectl annotate deployment app-webcolor-rolling kubernetes.io/change-cause="ima
 
 
 kubectl run -i --tty pod-busybox --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c 'for i in $(seq 35); do wget -q -O- http://svc-app-webcolor-rolling:9000/all;echo;sleep 0.5; done'
-
-
 
 
 
