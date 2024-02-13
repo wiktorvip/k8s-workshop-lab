@@ -9,6 +9,6 @@ kubectl delete deployments.apps app-webcolor-green
 
 Canary
 --------------------------------------------------------------------------
-kubectl run -i --tty pod-busybox --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c 'for i in $(seq 10); do wget -q -O- http://svc-app-webcolor-canary:9000/all;echo;sleep 0.5; done'
+kubectl run -i --tty pod-busybox --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c 'for i in $(seq 15); do wget -q -O- http://svc-app-webcolor-canary:9000/all;echo;sleep 0.5; done'
 
 

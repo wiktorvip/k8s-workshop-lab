@@ -8,3 +8,5 @@ spec:
   containers:
   - image: ghcr.io/wiktorvip/app-webcolor:v2
     name: app-webcolor
+    ports:
+    - containerPort: 9000

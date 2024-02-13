@@ -1,5 +1,8 @@
 minikube service --all
 
+kubectl get svc
+kubectl  get ep
+
 kubectl exec --stdin --tty pod-busybox -- sh
 
 wget -q -O- http://cluster-svc-app-webcolor:9000

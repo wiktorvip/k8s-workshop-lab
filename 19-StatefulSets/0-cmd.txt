@@ -1,6 +1,6 @@
 kubectl exec --stdin --tty pod-mysql-client -- sh
 
-mysql -p$MYSQL_PASSWORD -h svc-mysql-h
+mysql -p$MYSQL_PASSWORD -h set-mysql-0.svc-mysql-h
 
 
 select @@hostname;

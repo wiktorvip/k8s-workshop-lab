@@ -5,7 +5,7 @@ kubectl scale deployment app-webcolor-recreate --replicas=10
 ---------------------------------------------------------------------------------
 kubectl rollout status deployment app-webcolor-recreate
 
-kubectl set image deployment app-webcolor-recreate app-webcolor=ghcr.io/wiktorvip/app-webcolor:v2
+kubectl set image deployment app-webcolor-recreate app-webcolor=ghcr.io/wiktorvip/app-webcolor:v3
 
 kubectl annotate deployment app-webcolor-recreate kubernetes.io/change-cause="image updated to v1 to v2"
 
