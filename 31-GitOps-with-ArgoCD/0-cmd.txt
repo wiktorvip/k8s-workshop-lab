@@ -3,5 +3,5 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 kubectl apply -f https://raw.githubusercontent.com/wiktorvip/argocd-app-config/main/app-webcolor.yaml
 
-
+kubectl apply -f https://raw.githubusercontent.com/wiktorvip/argocd-app-config/main/app-demo.yaml
 

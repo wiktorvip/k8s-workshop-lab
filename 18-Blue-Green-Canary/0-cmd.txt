@@ -1,5 +1,14 @@
-kubectl run -i --tty pod-busybox --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c 'for i in $(seq 35); do wget -q -O- http://svc-app-webcolor-blue-green:9000/all;echo;sleep 0.5; done'
+Blue-green
+--------------------------------------------------------------------------
+
+kubectl run -i --tty pod-busybox --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c 'for i in $(seq 10); do wget -q -O- http://svc-app-webcolor-blue-green:9000/all;echo;sleep 0.5; done'
 
 kubectl edit svc svc-app-webcolor-blue-green
+
+kubectl delete deployments.apps app-webcolor-green
+
+Canary
+--------------------------------------------------------------------------
+kubectl run -i --tty pod-busybox --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c 'for i in $(seq 10); do wget -q -O- http://svc-app-webcolor-canary:9000/all;echo;sleep 0.5; done'
 
 

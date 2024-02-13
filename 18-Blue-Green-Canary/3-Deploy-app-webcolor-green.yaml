@@ -19,6 +19,6 @@ spec:
       containers:
       - image: ghcr.io/wiktorvip/app-webcolor:green
         name: app-webcolor
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9000
