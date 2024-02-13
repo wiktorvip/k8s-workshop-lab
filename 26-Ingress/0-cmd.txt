@@ -1,5 +1,7 @@
 minikube service --all
 
+curl --header 'Host: blue.com' http://10.0.0.240
 
+curl --header 'Host: green.com' http://10.0.0.240
 
 
