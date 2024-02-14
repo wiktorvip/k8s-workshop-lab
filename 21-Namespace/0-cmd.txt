@@ -1,4 +1,4 @@
-kubectl config set-context --current --namespace=app
+kubectl config set-context --current --namespace=kube-system
 kubectl config get-contexts
 
 kubectl config set-context --current --namespace=default
