@@ -5,3 +5,6 @@ kubectl apply -f https://raw.githubusercontent.com/wiktorvip/argocd-app-config/m
 
 kubectl apply -f https://raw.githubusercontent.com/wiktorvip/argocd-app-config/main/app-demo.yaml
 
+helm repo add argo https://argoproj.github.io/argo-helm
+
+helm install argocd argocd/argo-cd --namespace argocd --create-namespace
