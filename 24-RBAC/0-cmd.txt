@@ -3,6 +3,7 @@ kubectl api-resources --sort-by name -o wide | grep Pod
 
 
 kubectl auth can-i list pods --as=bob -n default
+
 kubectl auth can-i list pods --as=bob -n app
 kubectl auth can-i get pods --subresource=log --as=bob
 

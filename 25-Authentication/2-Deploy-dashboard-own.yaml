@@ -14,10 +14,10 @@ spec:
       labels:
         app: app-k8s-dashboard-own
     spec:
-      #serviceAccountName: sa-dashboard
+      serviceAccountName: sa-dashboard
       containers:
       - name: app-k8s-dashboard-own
-        image: ghcr.io/wiktorvip/app-k8s-dashboard-own:2.0
+        image: ghcr.io/wiktorvip/app-k8s-dashboard-own
         ports:
           - containerPort: 9040
 ---

@@ -1,19 +1,30 @@
+https://keda.sh/docs/2.13/deploy/
+
+
 
 # Add the repo
-helm repo add metallb https://metallb.github.io/metallb
+helm repo add kedacore https://kedacore.github.io/charts
 
 # Update repo
 helm repo update
 
 # Check Values
-helm show values metallb/metallb
+helm show values kedacore/keda
+
+---------------------------------------------------------------------------
+helm repo add examples https://helm.github.io/examples
+
+helm show values examples/hello-world
+
+helm install hello-world examples/hello-world --values values.yaml
 
 
+---------------------------------------------------------------------------
 helm repo list
 
 helm list -A
 
-helm show values
+helm show valuess
 
 
 
