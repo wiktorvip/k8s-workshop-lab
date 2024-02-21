@@ -1,17 +1,39 @@
-https://keda.sh/docs/2.13/deploy/
+# List all avaiable repos on cluster
+helm repo list
 
-
+# List installed applications 
+helm list -A
 
 # Add the repo
-helm repo add kedacore https://kedacore.github.io/charts
+helm repo add app-webcolor https://wiktorvip.github.io/app-webcolor
 
 # Update repo
 helm repo update
 
+# Search in repo
+helm search repo app-webcolor
+
 # Check Values
-helm show values kedacore/keda
+helm show values app-webcolor/app-webcolor
+
+# install app
+helm install app-webcolor app-webcolor/app-webcolor
 
 ---------------------------------------------------------------------------
+helm show values app-webcolor/app-webcolor > dev_values.yaml
+helm show values app-webcolor/app-webcolor > prod_values.yaml
+
+
+helm install app-webcolor app-webcolor/app-webcolor --values dev_values.yaml --namespace dev --create-namespace
+
+helm install app-webcolor app-webcolor/app-webcolor --values dev_values.yaml --namespace prod --create-namespace
+
+helm uninstall app-webcolor --namespace dev
+helm uninstall app-webcolor --namespace prod
+
+---------------------------------------------------------------------------
+
+
 helm repo add examples https://helm.github.io/examples
 
 helm show values examples/hello-world
@@ -20,13 +42,6 @@ helm install hello-world examples/hello-world --values values.yaml
 
 
 ---------------------------------------------------------------------------
-helm repo list
-
-helm list -A
-
-helm show valuess
-
-
 
 # List all available releases in the current namespace:
 helm list

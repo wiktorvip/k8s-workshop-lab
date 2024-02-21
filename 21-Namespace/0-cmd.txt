@@ -10,3 +10,4 @@ kubectl exec -i -t pod-dnsutils -- nslookup kubernetes.default
 
 
 
+https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/

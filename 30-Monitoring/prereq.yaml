@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: elephant
-  namespace: default
+  name: black
 spec:
   containers:
   - args:
@@ -26,8 +25,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: elephant
-  namespace: default
+  name: blue
 spec:
   containers:
   - args:
@@ -51,8 +49,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: rabbit
-  namespace: default
+  name: white
 spec:
   containers:
   - args:
