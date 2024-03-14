@@ -1,0 +1,26 @@
+https://open-policy-agent.github.io/gatekeeper/website/docs/install
+
+
+helm repo add gatekeeper https://open-policy-agent.github.io/gatekeeper/charts
+helm install gatekeeper/gatekeeper --name-template=gatekeeper --namespace gatekeeper-system --create-namespace
+
+k get ConstraintTemplate
+k get constraints -A
+
+
+https://github.com/open-policy-agent/gatekeeper/tree/master/demo/basic
+https://github.com/open-policy-agent/gatekeeper/tree/master/demo/agilebank
+
+
+kubectl get crd | grep -i gatekeeper
+
+kubectl get constraint -o json | jq '.items[].status.violations'
+
+kubectl describe constrainttemplate k8sallowedrepos
+
+k get k8srequiredlabels.constraints.gatekeeper.sh ns-must-have-gk
+
+
+
+
+

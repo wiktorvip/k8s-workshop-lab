@@ -1,0 +1,39 @@
+
+velero backup-location get
+velero schedule get
+velero backup get
+
+
+nginx
+----------------
+kubectl apply -f 01-Deploy-nginx.yaml
+kubectl get all -n test -o wide
+
+velero schedule create nginx-backup-daily --schedule="0 1 * * *" --selector app=nginx
+velero backup create nginx-backup --selector app=nginx
+velero backup get
+velero backup logs nginx-backup
+
+kubectl delete ns test
+velero restore create --from-backup nginx-backup
+kubectl get all -n test -o wide
+
+nginx-pv
+----------------
+kubectl apply -f 02-Deply-nginx-pv.yaml
+kubectl get all,pv,pvc,cm -n test -o wide
+
+kubectl exec -n test nginx-deployment-pv-6f97d55f44-xs965 -it -- touch /var/log/nginx/TEST
+kubectl exec -n test nginx-deployment-pv-6f97d55f44-xs965 -it -- ls -la /var/log/nginx/
+
+velero schedule create nginx-pv-backup-daily --schedule="0 1 * * *" --selector app=nginx-pv
+velero backup create nginx-pv-backup --selector app=nginx-pv
+velero backup get
+velero backup logs nginx-pv-backup
+
+kubectl delete ns test
+kubectl create ns dev
+velero restore create --from-backup nginx-pv-backup --namespace-mappings test:dev
+
+kubectl get all,pv,pvc,cm -n test -o wide
+

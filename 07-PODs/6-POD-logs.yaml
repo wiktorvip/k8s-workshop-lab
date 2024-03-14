@@ -8,4 +8,4 @@ metadata:
 spec:
   containers:
   - name: app-event-simulator
-    image: ghcr.io/wiktorvip/app-event-simulator:1.0
+    image: ghcr.io/wiktorvip/app-event-simulator:v1

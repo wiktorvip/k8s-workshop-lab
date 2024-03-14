@@ -1,0 +1,90 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test
+  labels:
+    app: nginx
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-index-html
+  namespace: test
+  labels:
+    app: nginx-pv
+data:
+  index.html: |
+    <html>
+    <h1>Welcome</h1>
+    </br>
+    <h1>Hi! This is a configmap Index file </h1>
+    </html
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nginx-logs
+  namespace: test
+  labels:
+    app: nginx-pv
+spec:
+  # Optional:
+  # storageClassName: <YOUR_STORAGE_CLASS_NAME>
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-pv
+  namespace: test
+  labels:
+    app: nginx-pv  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-pv
+  template:
+    metadata:
+      labels:
+        app: nginx-pv
+    spec:
+      volumes:
+        - name: nginx-logs
+          persistentVolumeClaim:
+           claimName: nginx-logs
+        - name: cm-index-volume
+          configMap:
+           name: cm-index-html
+      containers:
+      - image: nginx:1.24
+        name: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - mountPath: "/var/log/nginx"
+            name: nginx-logs
+            readOnly: false
+          - name: cm-index-volume
+            readOnly: true
+            mountPath: "/usr/share/nginx/html/"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx-pv
+  name: nginx-svc-pv
+  namespace: test
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: nginx-pv
+  type: NodePort

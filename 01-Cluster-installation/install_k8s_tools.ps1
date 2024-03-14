@@ -76,36 +76,36 @@ Remove-Item $desctHelm
 
 Write-Host "Helm is now installed!"
 
-# ############# Terraform
-# ################################################################################################################################
-# $downloadUrlTerraform = "https://releases.hashicorp.com/terraform/1.7.1/terraform_1.7.1_windows_amd64.zip"
-# $desctTerraform = "c:\bin\terraform_1.7.1_windows_amd64.zip"
+############# Terraform
+################################################################################################################################
+$downloadUrlTerraform = "https://releases.hashicorp.com/terraform/1.7.1/terraform_1.7.1_windows_amd64.zip"
+$desctTerraform = "c:\bin\terraform_1.7.1_windows_amd64.zip"
 
-# Write-Host "Downloading Terraform"
-# Invoke-WebRequest $downloadUrlTerraform -OutFile $desctTerraform -UseBasicParsing
+Write-Host "Downloading Terraform"
+Invoke-WebRequest $downloadUrlTerraform -OutFile $desctTerraform -UseBasicParsing
 
-# Expand-Archive $desctTerraform -DestinationPath c:\bin
+Expand-Archive $desctTerraform -DestinationPath c:\bin
 
-# Remove-Item $desctTerraform
+Remove-Item $desctTerraform
 
-# Write-Host "Terraform is now installed!"
+Write-Host "Terraform is now installed!"
 
-# ############# Tofu
-# ################################################################################################################################
-# $downloadUrlTofu= "https://github.com/opentofu/opentofu/releases/download/v1.6.1/tofu_1.6.1_windows_amd64.zip"
-# $desctTofu = "c:\bin\tofu_1.6.1_windows_amd64.zip"
-# $desctTofuTmp = "c:\bin\tmp"
+############# Tofu
+################################################################################################################################
+$downloadUrlTofu= "https://github.com/opentofu/opentofu/releases/download/v1.6.1/tofu_1.6.1_windows_amd64.zip"
+$desctTofu = "c:\bin\tofu_1.6.1_windows_amd64.zip"
+$desctTofuTmp = "c:\bin\tmp"
 
-# Write-Host "Downloading Tofu"
-# Invoke-WebRequest $downloadUrlTofu -OutFile $desctTofu -UseBasicParsing
+Write-Host "Downloading Tofu"
+Invoke-WebRequest $downloadUrlTofu -OutFile $desctTofu -UseBasicParsing
 
-# Expand-Archive $desctTofu -DestinationPath $desctTofuTmp
+Expand-Archive $desctTofu -DestinationPath $desctTofuTmp
 
-# Copy-Item "$desctTofuTmp\tofu.exe" -Destination "c:\bin\tofu.exe"
+Copy-Item "$desctTofuTmp\tofu.exe" -Destination "c:\bin\tofu.exe"
 
-# Remove-Item -LiteralPath $desctTofuTmp -Force -Recurse
-# Remove-Item $desctTofu
+Remove-Item -LiteralPath $desctTofuTmp -Force -Recurse
+Remove-Item $desctTofu
 
-# Write-Host "Tofu is now installed!"
+Write-Host "Tofu is now installed!"
 
 

@@ -14,14 +14,15 @@ if ((Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).Stat
 install_k8s_tools.ps1
 
 --------------------------------------------------------------
+https://minikube.sigs.k8s.io/docs/commands/start/
 
 minikube config set driver hyperv
 
 minikube config defaults kubernetes-version
 
-minikube start --cpus=2 --memory=2GB --disk-size=10GB --nodes=2 --kubernetes-version=v1.28.3 --container-runtime=containerd
+minikube start --cpus=2 --memory=2GB --disk-size=10GB --nodes=2 --kubernetes-version=v1.28.3 --cni calico --container-runtime=containerd
 
-minikube start --hyperv-use-external-switch --cpus=2 --memory=2GB --disk-size=10GB --nodes=2 --kubernetes-version=v1.28.3 --container-runtime=containerd
+minikube start --hyperv-use-external-switch --cpus=2 --memory=2GB --disk-size=10GB --nodes=2 --kubernetes-version=v1.28.3 --cni calico --container-runtime=containerd
 
 
 minikube profile list
