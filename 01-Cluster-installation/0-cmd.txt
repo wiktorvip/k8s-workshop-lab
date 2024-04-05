@@ -40,4 +40,3 @@ minikube profile list
 
 minikube ssh -n minikube
 minikube ssh -n minikube-m02
-
