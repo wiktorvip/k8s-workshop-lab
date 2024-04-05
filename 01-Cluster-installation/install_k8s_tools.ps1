@@ -76,36 +76,77 @@ Remove-Item $desctHelm
 
 Write-Host "Helm is now installed!"
 
-############# Terraform
+# ############# Calicoctl
+# ################################################################################################################################
+# $downloadUrlCalicoctl = "https://github.com/projectcalico/calicoctl/releases/download/v3.20.6/calicoctl-windows-amd64.exe"
+# $desctMCalicoctl = "c:\bin\calicoctl.exe"
+
+# Write-Host "Downloading calicoctl"
+# Invoke-WebRequest $downloadUrlCalicoctl -OutFile $desctMCalicoctl
+
+# Write-Host "calicoctl is now installed!"
+
+############# velero cli
 ################################################################################################################################
-$downloadUrlTerraform = "https://releases.hashicorp.com/terraform/1.7.1/terraform_1.7.1_windows_amd64.zip"
-$desctTerraform = "c:\bin\terraform_1.7.1_windows_amd64.zip"
+$downloadUrlVelerocli = "https://github.com/vmware-tanzu/velero/releases/download/v1.13.1/velero-v1.13.1-windows-amd64.tar.gz"
+$desctMVelerocli = "c:\bin\velero.tar.gz"
 
-Write-Host "Downloading Terraform"
-Invoke-WebRequest $downloadUrlTerraform -OutFile $desctTerraform -UseBasicParsing
+Write-Host "Downloading velero cli"
 
-Expand-Archive $desctTerraform -DestinationPath c:\bin
+Invoke-WebRequest $downloadUrlVelerocli -OutFile $desctMVelerocli
+tar -xvzf $desctMVelerocli 
 
-Remove-Item $desctTerraform
+Copy-Item "c:\bin\velero-v1.13.1-windows-amd64\velero.exe" -Destination "c:\bin\velero.exe"
+Remove-Item $desctMVelerocli
 
-Write-Host "Terraform is now installed!"
+Write-Host "velero cli is now installed!"
 
-############# Tofu
+############# K9s
 ################################################################################################################################
-$downloadUrlTofu= "https://github.com/opentofu/opentofu/releases/download/v1.6.1/tofu_1.6.1_windows_amd64.zip"
-$desctTofu = "c:\bin\tofu_1.6.1_windows_amd64.zip"
-$desctTofuTmp = "c:\bin\tmp"
+$downloadUrlK9s = "https://github.com/derailed/k9s/releases/download/v0.32.4/k9s_Windows_amd64.zip"
+$desctK9s = "c:\bin\k9s_Windows_amd64.zip"
 
-Write-Host "Downloading Tofu"
-Invoke-WebRequest $downloadUrlTofu -OutFile $desctTofu -UseBasicParsing
+Write-Host "Downloading K9s"
+Invoke-WebRequest $downloadUrlK9s -OutFile $desctK9s -UseBasicParsing
 
-Expand-Archive $desctTofu -DestinationPath $desctTofuTmp
+Expand-Archive $desctK9s -DestinationPath c:\bin -Force
 
-Copy-Item "$desctTofuTmp\tofu.exe" -Destination "c:\bin\tofu.exe"
+Remove-Item $desctK9s
+Remove-Item "C:\bin\LICENSE"
+Remove-Item "C:\bin\README.md"
 
-Remove-Item -LiteralPath $desctTofuTmp -Force -Recurse
-Remove-Item $desctTofu
+Write-Host "K9s is now installed!"
 
-Write-Host "Tofu is now installed!"
+# ############# Terraform
+# ################################################################################################################################
+# $downloadUrlTerraform = "https://releases.hashicorp.com/terraform/1.7.1/terraform_1.7.1_windows_amd64.zip"
+# $desctTerraform = "c:\bin\terraform_1.7.1_windows_amd64.zip"
+
+# Write-Host "Downloading Terraform"
+# Invoke-WebRequest $downloadUrlTerraform -OutFile $desctTerraform -UseBasicParsing
+
+# Expand-Archive $desctTerraform -DestinationPath c:\bin
+
+# Remove-Item $desctTerraform
+
+# Write-Host "Terraform is now installed!"
+
+# ############# Tofu
+# ################################################################################################################################
+# $downloadUrlTofu= "https://github.com/opentofu/opentofu/releases/download/v1.6.1/tofu_1.6.1_windows_amd64.zip"
+# $desctTofu = "c:\bin\tofu_1.6.1_windows_amd64.zip"
+# $desctTofuTmp = "c:\bin\tmp"
+
+# Write-Host "Downloading Tofu"
+# Invoke-WebRequest $downloadUrlTofu -OutFile $desctTofu -UseBasicParsing
+
+# Expand-Archive $desctTofu -DestinationPath $desctTofuTmp
+
+# Copy-Item "$desctTofuTmp\tofu.exe" -Destination "c:\bin\tofu.exe"
+
+# Remove-Item -LiteralPath $desctTofuTmp -Force -Recurse
+# Remove-Item $desctTofu
+
+# Write-Host "Tofu is now installed!"
 
 

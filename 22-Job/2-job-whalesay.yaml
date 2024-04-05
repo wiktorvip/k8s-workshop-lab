@@ -13,7 +13,7 @@ spec:
       - command:
         - sh 
         - -c
-        - "cowsay I am going to ace CKAD!"
+        - "cowsay I am going to home!"
         image: docker/whalesay
         name: whalesay
       restartPolicy: Never
