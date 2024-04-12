@@ -1,3 +1,4 @@
 kubectl exec -it pod-data-volume -- sh
 
-
+k exec hostpath-test-6cf4d888f6-lll8t -it -- touch /opt/test/xa12
+k exec hostpath-test-6cf4d888f6-lll8t -it -- ls -la /opt/test

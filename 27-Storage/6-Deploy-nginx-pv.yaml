@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nginx-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 100Mi
+  #storageClassName: "nfs-client"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -43,16 +56,5 @@ spec:
   selector:
     app: deployment-nginx-pv
   type: NodePort
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: nginx-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  volumeMode: Filesystem
-  resources:
-    requests:
-      storage: 100Mi
-  #storageClassName: "nfs-client"
+
+
