@@ -22,3 +22,7 @@ spec:
        - name: cache-volume
          emptyDir:
           sizeLimit: 50Mi
+
+# The location should of emptyDir should be in 
+# /var/lib/kubelet/pods/{podid}/volumes/kubernetes.io~empty-dir/ 
+# on the given node where your pod is running.

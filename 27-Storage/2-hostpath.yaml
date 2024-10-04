@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: hostpath-test
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: hostpath-test

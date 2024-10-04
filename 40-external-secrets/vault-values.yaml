@@ -1,0 +1,6 @@
+ui:
+  enabled: true
+  serviceType: "NodePort"
+  serviceNodePort: 30999
+dataStorage:
+  size: 2Gi

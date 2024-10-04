@@ -24,8 +24,9 @@ Set-Alias -Name minikube -Value c:\bin\minikube
 Set-Alias -Name kubectl -Value c:\bin\kubectl
 
 
-minikube start --cpus=2 --memory=2GB --disk-size=10GB --nodes=2 --kubernetes-version=v1.28.3 --cni calico --container-runtime=containerd
+minikube start --cpus=2 --memory=2GB --disk-size=3GB --nodes=2 --kubernetes-version=v1.29.4 --cni calico --container-runtime=containerd
 
+minikube start --nodes=2 --kubernetes-version=v1.29.4 --cni calico --container-runtime=containerd
 
 
 minikube start --hyperv-use-external-switch --cpus=2 --memory=2GB --disk-size=10GB --nodes=2 --kubernetes-version=v1.28.3 --cni calico --container-runtime=containerd
