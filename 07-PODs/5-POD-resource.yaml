@@ -10,7 +10,7 @@ spec:
  - name: nginx
    image: nginx
    resources:
-     requests:           # each container requires 50m of CPU resources and 100Mi of memory on the node
+     requests:           # each container requires 50m of CPU resources and 100Mi of memory on the node, min mem to start container
        memory: "100Mi"
        cpu: "50m"
      limits:             # each container should not be allowed to consume more than 200Mi of memory.
