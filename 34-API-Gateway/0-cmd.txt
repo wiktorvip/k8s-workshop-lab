@@ -1,6 +1,12 @@
 
 https://github.com/nginxinc/nginx-gateway-fabric/tree/main/examples/traffic-splitting
 
+kubectl kustomize "https://github.com/nginxinc/nginx-gateway-fabric/config/crd/gateway-api/standard?ref=v1.4.0" | kubectl apply -f -
+
+helm install ngf oci://ghcr.io/nginxinc/charts/nginx-gateway-fabric --create-namespace -n nginx-gateway
+
+curl --header 'Host: www.example.com' http://172.30.1.2
+
 
 
 https://docs.konghq.com/kubernetes-ingress-controller/latest/get-started/services-and-routes/

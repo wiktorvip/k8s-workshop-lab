@@ -3,7 +3,20 @@ minio
 kubectl apply -f 00-minio-deployment.yaml
 
 
-velero install --provider aws --plugins velero/velero-plugin-for-aws:v1.9.0 --bucket velero --secret-file credentials-velero --use-volume-snapshots=false --backup-location-config region=minio,s3ForcePathStyle=true,s3Url=http://minio:9000
+wget https://github.com/vmware-tanzu/velero/releases/download/v1.14.1/velero-v1.14.1-linux-amd64.tar.gz
+
+
+
+velero install \
+    --provider aws \
+    --plugins velero/velero-plugin-for-aws:v1.10.1 \
+    --bucket velero \
+    --secret-file ./credentials-velero \
+    --use-volume-snapshots=false \
+    --backup-location-config region=minio,s3ForcePathStyle="true",s3Url=http://minio:9000
+
+
+
 
 kubectl logs deployment/velero -n velero
 

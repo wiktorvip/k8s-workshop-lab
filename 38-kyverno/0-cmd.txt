@@ -11,6 +11,8 @@ helm install kyverno-policies kyverno/kyverno-policies -n kyverno-system
 
 kubectl get crd | grep -i kyverno
 
+k apply -f 01-ClusterPolicy-requied-labels.yaml
+k apply -f 02-ClusterPolicy-restrict-image-registries.yaml
 
 kubectl get clusterpolicy
 
