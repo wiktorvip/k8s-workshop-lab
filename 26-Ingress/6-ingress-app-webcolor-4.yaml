@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-app-webcolor-4
+spec:
+  tls:
+  - hosts:
+      - secure-ingress.com
+    secretName: secure-ingress
+  ingressClassName: nginx
+  rules:
+  - host: secure-ingress.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: svc-app-webcolor-blue
+            port:
+              number: 9000
+        path: /blue
+        pathType: Prefix
+      - backend:
+          service:
+            name: svc-app-webcolor-green
+            port:
+              number: 9000
+        path: /green
+        pathType: Prefix

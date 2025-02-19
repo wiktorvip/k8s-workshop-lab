@@ -1,0 +1,73 @@
+https://github.com/kubernetes-sigs/bom
+
+wget https://github.com/kubernetes-sigs/bom/releases/download/v0.6.0/bom-amd64-linux
+
+sudo mv bom-amd64-linux /usr/local/bin/bom
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx1
+    image: nginx:1.14.2
+  - name: nginx2
+    image: nginx:1.20.2
+  - name: nginx3
+    image: nginx:1.27.2
+
+
+bom generate --image nginx:1.14.2 --output nginx1.spdx
+bom generate --image nginx:1.20.2 --output nginx2.spdx
+bom generate --image nginx:1.27.2 --output nginx3.spdx
+
+bom document outline nginx1.spdx
+bom document outline nginx2.spdx
+bom document outline nginx3.spdx
+
+------------------------------------------------------------------------
+
+https://github.com/aquasecurity/trivy
+wget https://github.com/aquasecurity/trivy/releases/download/v0.58.1/trivy_0.58.1_Linux-64bit.deb
+sudo apt install ./trivy_0.58.1_Linux-64bit.deb
+
+
+
+trivy image --severity HIGH,CRITICAL nginx:1.14.2 -o nginx1.out
+-----------------------------------------------------------------------
+wget https://github.com/aquasecurity/kube-bench/releases/download/v0.9.4/kube-bench_0.9.4_linux_amd64.deb
+sudo apt install ./kube-bench_0.9.4_linux_amd64.deb
+
+
+kube-bench --config-dir ./cfg run --targets master
+
+
+kube-bench run --targets etcd,master,node
+
+kube-bench --config-dir `pwd`/cfg --config `pwd`/cfg/config.yaml --targets etcd,master,node
+kube-bench run --targets etcd,master,node
+
+-----------------------------------------------------------------------
+>>> ingress TLS
+
+openssl req -nodes -new -x509 -keyout accounting.key -out accounting.crt -subj "/CN=accounting.tls"
+
+-----------------------------------------------------------------------
+
+wget https://github.com/controlplaneio/kubesec/releases/download/v2.14.2/kubesec_linux_amd64.tar.gz
+tar zxf kubesec_linux_amd64.tar.gz
+sudo mv kubesec /usr/local/bin/
+
+
+https://github.com/controlplaneio/kubesec?tab=readme-ov-file#command-line-usage
+
+
+-----------------------------------------------------------------------
+
+wget https://github.com/stackrox/kube-linter/releases/download/v0.7.1/kube-linter-linux
+
+sudo mv kube-linter-linux /usr/local/bin/kube-linter
+
+

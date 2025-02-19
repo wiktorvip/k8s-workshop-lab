@@ -26,3 +26,4 @@ kubectl get secret name-of-secret -o go-template='
 kubectl get secret bootstrap-token-rhqlv1 -n kube-system -o json | jq '.data | map_values(@base64d)'
 
 
+curl -s --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET ${APISERVER}/api/v1/namespaces/default/pods

@@ -1,0 +1,43 @@
+FROM alpine
+RUN apk add nginx
+ENTRYPOINT ["nginx", "-g", "daemon off"]
+
+Dockerfile
+
+docker build -t own-nginx:v.1 .
+
+docker images
+
+------------------------------------------------------------------------------------
+
+git clone https://github.com/wiktorvip/app-webcolor
+
+
+
+docker run -d \
+  --name=app1 \
+  -p 9000:9000 \
+  --restart unless-stopped \
+  app1:1.0
+
+
+docker build -t own-nginx:v.1 .
+docker run docker.io/image-verify:v2
+docker push docker.io/image-verify:v2
+
+git clone https://github.com/wiktorvip/app-webcolor
+docker login -u wiktorvip
+
+
+docker build -t app1:v1 .
+docker build -t wiktorvip/app1:v1 .
+
+
+1. generate PAT docker
+docker login -u wiktorvip
+
+docker push wiktorvip/app1:v1
+
+
+
+

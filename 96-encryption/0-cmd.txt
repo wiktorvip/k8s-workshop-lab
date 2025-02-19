@@ -1,0 +1,27 @@
+https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
+
+
+mkdir -p /etc/kubernetes/etcd
+
+
+password expected one of [16 24 32] characters
+
+echo -n superduperpaswor | base64
+
+https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/#use-the-new-encryption-configuration-file
+
+
+- --encryption-provider-config=/etc/kubernetes/etcd/ec.yaml  # add this line
+
+tail -f kube-system_kube-apiserver-lab-k8s-m1_a9ba539a31fb573d211b4abfb34ef467/kube-apiserver/0.log
+
+
+ETCDCTL_API=3 etcdctl \
+   --cacert=/etc/kubernetes/pki/etcd/ca.crt   \
+   --cert=/etc/kubernetes/pki/etcd/server.crt \
+   --key=/etc/kubernetes/pki/etcd/server.key  \
+   get /registry/secrets/default/secret1
+
+
+kubectl get secret -A -oyaml | kubectl replace -f
+

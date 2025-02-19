@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-httpd
+spec:
+  selector:
+    matchLabels:
+      app: httpd        # has to match .spec.template.metadata.labels
+  replicas: 3                  # specifies how many pods to run
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: httpd       # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+       - name: httpd
+         image: httpd:2.4.46-alpine
+         ports:
+          - containerPort: 80
+         livenessProbe:
+           exec:
+             command:
+             - sh
+             - -c
+             - echo hacker >> /etc/passwd ; sed -i '$d' /etc/passwd ; true
+           initialDelaySeconds: 5  # specifies how long the kubelet should wait after the pod starts, before performing the first probe.
+           periodSeconds: 5        # specifies how often the kubelet should perform a liveness probe.

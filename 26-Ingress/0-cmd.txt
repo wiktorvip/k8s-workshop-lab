@@ -5,3 +5,23 @@ curl --header 'Host: blue.com' http://10.0.0.240
 curl --header 'Host: green.com' http://10.0.0.240
 
 
+openssl req -nodes -new -x509 -keyout accounting.key -out accounting.crt -subj "/CN=secure-ingress.com"
+
+
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 265 -nodes
+
+Common Name (e.g. server FQDN or YOUR name) []:secure-ingress.com
+
+
+kubectl create secret tls secure-ingress --cert=cert.pem --key=key.pem
+
+
+
+
+curl  https://172.16.200.20:31174 -kv
+curl  https://172.16.200.240 -kv
+
+
+curl https://secure-ingress.com:31174/blue -kv --resolve secure-ingress.com:31174:172.16.200.20
+curl https://secure-ingress.com/blue -kv --resolve secure-ingress.com:443:172.16.200.240
+

@@ -2,6 +2,17 @@ kubectl create serviceaccount sa-dashboard
 
 kubectl create token sa-dashboard
 
+kubectl run pod-nginx --image=nginx
 
-minikube service --all
+kubectl exec -it pod-nginx -- bash
+
+root@pod-nginx:/# mount | grep -i serv
+tmpfs on /run/secrets/kubernetes.io/serviceaccount type tmpfs (ro,relatime,size=5961640k,inode64)
+
+https://jwt.io/
+
+curl https://${KUBERNETES_SERVICE_HOST} -k
+
+
+
 
